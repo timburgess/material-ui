@@ -18,6 +18,7 @@ const GUTTER = 24;
 // with `translate3d(0, 0, 0)`.`
 function getTranslateValue(props, node) {
   const { direction } = props;
+  console.log('direction:' + direction)
   const rect = node.getBoundingClientRect();
 
   let transform;
@@ -52,7 +53,10 @@ function getTranslateValue(props, node) {
   }
 
   if (direction === 'up') {
-    return `translateY(100vh) translateY(-${rect.top - offsetY}px)`;
+    // return `translateY(100vh) translateY(-${rect.top - offsetY}px)`;
+    // 100vh has issues on mobile due to url bar - https://developers.google.com/web/updates/2016/12/url-bar-resizing
+    // for non-scrolling content such as map, this works
+    return `translateY(${rect.height}px)`;
   }
 
   // direction === 'down'
